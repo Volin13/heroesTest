@@ -29,7 +29,7 @@ const EditHeroModal = ({ show, onHide }) => {
   const sexTypes = ['Male', 'Femail', 'Unknown'];
 
   // Формую масив назв девайсів, які уже є для подальшої перевірки в схемі
-  console.log(selectedHero);
+  console.log(superpowers);
   useEffect(() => {
     setSuperpowers(selectedHero.hero_superpowers);
     setCatchPhrases(selectedHero.catch_phrases);
@@ -39,20 +39,18 @@ const EditHeroModal = ({ show, onHide }) => {
   }, []);
   // Зберегти додані і додати нову статтю в характеристики девайсу
   const addInfo = (changeFunc, arr, fieldName) => {
-    changeFunc([...arr, { title: '', description: '', number: Date.now() }]);
+    changeFunc([...arr, { title: '', description: '', id: Date.now() }]);
     formik.setFieldValue(fieldName, JSON.stringify(arr));
   };
   // Видалити додану статтю характеристик девайсу
-  const removeInfo = (number, changeFunc, arr, fieldName) => {
-    changeFunc(arr.filter(i => i.number !== number));
+  const removeInfo = (id, changeFunc, arr, fieldName) => {
+    changeFunc(arr.filter(i => i.id !== id));
     formik.setFieldValue(fieldName, JSON.stringify(arr));
   };
 
   // Змінити додану статтю характеристик девайсу
-  const changeInfo = (key, value, number, changeFunc, arr) => {
-    changeFunc(
-      arr.map(i => (i.number === number ? { ...i, [key]: value } : i)),
-    );
+  const changeInfo = (key, value, id, changeFunc, arr) => {
+    changeFunc(arr.map(i => (i.id === id ? { ...i, [key]: value } : i)));
   };
 
   // додати/видалити додані зображення девайсу
@@ -138,7 +136,7 @@ const EditHeroModal = ({ show, onHide }) => {
     },
   });
   const isValid = heroSchema.isValidSync(formik.values);
-  console.log(formik.errors);
+
   console.log(isValid);
 
   console.log(formik.values);
@@ -463,7 +461,7 @@ const EditHeroModal = ({ show, onHide }) => {
           </Button>
           <ul>
             {superpowers.map(i => (
-              <Row key={i.number} as="li">
+              <Row key={i.id} as="li">
                 <Col md={4}>
                   <Form.Control
                     className="mt-3"
@@ -473,7 +471,7 @@ const EditHeroModal = ({ show, onHide }) => {
                       changeInfo(
                         'title',
                         e.target.value,
-                        i.number,
+                        i.id,
                         setSuperpowers,
                         superpowers,
                       )
@@ -490,7 +488,7 @@ const EditHeroModal = ({ show, onHide }) => {
                       changeInfo(
                         'description',
                         e.target.value,
-                        i.number,
+                        i.id,
                         setSuperpowers,
                         superpowers,
                       )
@@ -504,7 +502,7 @@ const EditHeroModal = ({ show, onHide }) => {
                     variant="outline-danger"
                     onClick={() =>
                       removeInfo(
-                        i.number,
+                        i.id,
                         setSuperpowers,
                         superpowers,
                         'superpowers',
@@ -528,7 +526,7 @@ const EditHeroModal = ({ show, onHide }) => {
           </Button>
           <ul>
             {catchPhrases.map(i => (
-              <Row key={i.number} as="li">
+              <Row key={i.id} as="li">
                 <Col md={4}>
                   <Form.Control
                     className="mt-3"
@@ -538,7 +536,7 @@ const EditHeroModal = ({ show, onHide }) => {
                       changeInfo(
                         'title',
                         e.target.value,
-                        i.number,
+                        i.id,
                         setCatchPhrases,
                         catchPhrases,
                       )
@@ -555,7 +553,7 @@ const EditHeroModal = ({ show, onHide }) => {
                       changeInfo(
                         'description',
                         e.target.value,
-                        i.number,
+                        i.id,
                         setCatchPhrases,
                         catchPhrases,
                       )
@@ -569,7 +567,7 @@ const EditHeroModal = ({ show, onHide }) => {
                     variant="outline-danger"
                     onClick={() =>
                       removeInfo(
-                        i.number,
+                        i.id,
                         setCatchPhrases,
                         catchPhrases,
                         'catch_phrases',

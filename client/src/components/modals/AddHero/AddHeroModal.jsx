@@ -25,20 +25,18 @@ const AddHeroModal = ({ show, onHide }) => {
 
   // Зберегти додані і додати нову статтю в характеристики девайсу
   const addInfo = (changeFunc, arr, fieldName) => {
-    changeFunc([...arr, { title: '', description: '', number: Date.now() }]);
+    changeFunc([...arr, { title: '', description: '', id: Date.now() }]);
     formik.setFieldValue(fieldName, JSON.stringify(arr));
   };
   // Видалити додану статтю характеристик девайсу
-  const removeInfo = (number, changeFunc, arr, fieldName) => {
-    changeFunc(arr.filter(i => i.number !== number));
+  const removeInfo = (id, changeFunc, arr, fieldName) => {
+    changeFunc(arr.filter(i => i.id !== id));
     formik.setFieldValue(fieldName, JSON.stringify(arr));
   };
 
   // Змінити додану статтю характеристик девайсу
-  const changeInfo = (key, value, number, changeFunc, arr) => {
-    changeFunc(
-      arr.map(i => (i.number === number ? { ...i, [key]: value } : i)),
-    );
+  const changeInfo = (key, value, id, changeFunc, arr) => {
+    changeFunc(arr.map(i => (i.id === id ? { ...i, [key]: value } : i)));
   };
 
   // додати/видалити додані зображення девайсу
@@ -68,7 +66,6 @@ const AddHeroModal = ({ show, onHide }) => {
   const numberValidation = yup
     .number('The value has to be a number')
     .positive('The value has to be a positive number')
-    .integer('The value has to be an integer')
     .required('Pls add a value');
 
   let heroSchema = yup.object().shape({
@@ -277,6 +274,7 @@ const AddHeroModal = ({ show, onHide }) => {
               style={{ height: '38px' }}
               type="number"
               name="weight"
+              step="0.01"
               isInvalid={formik.values.weight && formik.errors.weight}
               value={formik.weight}
               onWheel={event => {
@@ -306,6 +304,7 @@ const AddHeroModal = ({ show, onHide }) => {
             <Form.Control
               style={{ height: '38px' }}
               type="number"
+              step="0.01"
               name="height"
               isInvalid={formik.values.height && formik.errors.height}
               value={formik.height}
@@ -362,9 +361,9 @@ const AddHeroModal = ({ show, onHide }) => {
             <Form.Control
               style={{ height: '38px' }}
               type="number"
+              step="0.01"
               inputMode="decimal"
               name="age"
-              step="any"
               isInvalid={formik.values.age && formik.errors.age}
               value={formik.values.age}
               onWheel={event => {
@@ -441,7 +440,7 @@ const AddHeroModal = ({ show, onHide }) => {
           </Button>
           <ul>
             {superpowers.map(i => (
-              <Row key={i.number} as="li">
+              <Row key={i.id} as="li">
                 <Col md={4}>
                   <Form.Control
                     className="mt-3"
@@ -451,7 +450,7 @@ const AddHeroModal = ({ show, onHide }) => {
                       changeInfo(
                         'title',
                         e.target.value,
-                        i.number,
+                        i.id,
                         setSuperpowers,
                         superpowers,
                       )
@@ -468,7 +467,7 @@ const AddHeroModal = ({ show, onHide }) => {
                       changeInfo(
                         'description',
                         e.target.value,
-                        i.number,
+                        i.id,
                         setSuperpowers,
                         superpowers,
                       )
@@ -482,7 +481,7 @@ const AddHeroModal = ({ show, onHide }) => {
                     variant="outline-danger"
                     onClick={() =>
                       removeInfo(
-                        i.number,
+                        i.id,
                         setSuperpowers,
                         superpowers,
                         'superpowers',
@@ -506,7 +505,7 @@ const AddHeroModal = ({ show, onHide }) => {
           </Button>
           <ul>
             {catchPhrases.map(i => (
-              <Row key={i.number} as="li">
+              <Row key={i.id} as="li">
                 <Col md={4}>
                   <Form.Control
                     className="mt-3"
@@ -516,7 +515,7 @@ const AddHeroModal = ({ show, onHide }) => {
                       changeInfo(
                         'title',
                         e.target.value,
-                        i.number,
+                        i.id,
                         setCatchPhrases,
                         catchPhrases,
                       )
@@ -533,7 +532,7 @@ const AddHeroModal = ({ show, onHide }) => {
                       changeInfo(
                         'description',
                         e.target.value,
-                        i.number,
+                        i.id,
                         setCatchPhrases,
                         catchPhrases,
                       )
@@ -547,7 +546,7 @@ const AddHeroModal = ({ show, onHide }) => {
                     variant="outline-danger"
                     onClick={() =>
                       removeInfo(
-                        i.number,
+                        i.id,
                         setCatchPhrases,
                         catchPhrases,
                         'catch_phrases',

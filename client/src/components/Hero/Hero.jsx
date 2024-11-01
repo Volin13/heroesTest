@@ -26,7 +26,7 @@ const Hero = () => {
     startTransition(() => {
       setHeroInfo(selectedHero);
     });
-  }, [selectedHero, id]);
+  }, [selectedHero]);
 
   return (
     <div className={css.hero}>

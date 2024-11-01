@@ -168,6 +168,20 @@ table {
   justify-content: center;
   font-size: 32px;
 }
+.loader {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  z-index: 99999;
+  background-color: rgba(106, 18, 18, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.loaderIcon {
+  height: 30vh;
+  width: 30vw;
+}
 .active > .page-link,
 .page-link.activ {
   background-color: var(--secondaryRedColor);
