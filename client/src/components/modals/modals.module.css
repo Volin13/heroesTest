@@ -1,0 +1,26 @@
+.modalBackground {
+  background-color: var(--secondaryBlackColor);
+  color: var(--warningColor);
+}
+.modalBody {
+  background-color: var(--secondaryBlackColor);
+  color: var(--secondaryWhiteColor);
+  overflow-y: auto;
+  height: calc(100vh - 140px);
+}
+.modalBody input,
+.modalBody textarea {
+  background-color: var(--secondaryBlackColor);
+  color: var(--secondaryWhiteColor);
+  border-color: var(--warningColor);
+}
+.modalBody input::placeholder,
+.modalBody textarea::placeholder {
+  color: var(--warningColor);
+}
+.inputLable {
+  background-color: var(--primaryRedColor);
+  color: var(--warningColor);
+  min-width: 185px;
+  justify-content: center;
+}

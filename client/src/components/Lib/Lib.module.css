@@ -1,0 +1,85 @@
+main {
+  padding: 30px 0;
+}
+.libList {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 2fr 1fr 2fr;
+  grid-template-rows: auto auto;
+  gap: 30px;
+}
+.noHeroesTitle {
+  text-align: center;
+  font-weight: 700;
+}
+.libListItem:nth-child(1) {
+  grid-column: 1;
+  display: flex;
+  justify-content: flex-start;
+}
+.libListItem:nth-child(2) {
+  grid-column: 2;
+}
+.libListItem:nth-child(3) {
+  grid-column: 3;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.libListItem:nth-child(4) {
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  justify-content: flex-end;
+}
+.libListItem:nth-child(5) {
+  grid-column: 3;
+  grid-row: 2;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.card {
+  width: 250px;
+  height: 300px;
+  padding: 20px 10px 10px 10px;
+  border: 1px solid var(--secondaryRedColor);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--primaryWhiteColor);
+  transition: all 0.5s ease;
+}
+.card:hover,
+.card:focus {
+  box-shadow: 0 0 100px var(--secondaryRedColor),
+    0 0 50px var(--primaryRedColor);
+}
+.cardImage {
+  height: 240px;
+  object-fit: cover;
+  object-position: top center;
+  transition: transform 3s ease;
+}
+.cardTitle {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 220px;
+  text-transform: capitalize;
+}
+.imgPreloader {
+  animation: rotateInfinite 3s linear infinite;
+}
+@keyframes rotateInfinite {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.card:hover .cardImage,
+.card:focus .cardImage {
+  transform: scale(1.1);
+}
