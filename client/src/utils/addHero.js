@@ -9,15 +9,15 @@ const addHero = async (
   const formData = new FormData();
   const oldImagesArray = [];
   try {
-    formData.append('real_name', values.real_name);
-    formData.append('nickname', values.nickname);
+    formData.append('real_name', values.real_name.trim());
+    formData.append('nickname', values.nickname.trim());
     formData.append('sex', values.sex);
     formData.append('alignment', values.alignment);
-    formData.append('origin_description', values.origin_description);
+    formData.append('origin_description', values.origin_description.trim());
     formData.append('height', `${values.height}`);
     formData.append('weight', `${values.weight}`);
     formData.append('age', `${values.age}`);
-    formData.append('species', values.species);
+    formData.append('species', values.species.trim());
     formData.append('mainImg', values.mainImg);
     formData.append('superpowers', JSON.stringify(superpowers));
     formData.append('catch_phrases', JSON.stringify(catch_phrases));
@@ -35,6 +35,8 @@ const addHero = async (
   } catch (error) {
     console.log('Smth bad heppened while appending form data');
   }
-  await func(formData, heroId);
+  const result = await func(formData, heroId);
+
+  return result;
 };
 export default addHero;

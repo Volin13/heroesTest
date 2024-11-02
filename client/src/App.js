@@ -17,8 +17,8 @@ function App() {
       <Provider store={store}>
         <BrowserRouter>
           <div className="d-flex flex-column" style={{ minHeight: '100vh' }}>
-            <HeaderBar />
             <Suspense fallback={<Loader />}>
+              <HeaderBar />
               <ToastContainer
                 style={{ marginTop: '60px' }}
                 position="top-right"
@@ -30,8 +30,8 @@ function App() {
               <div className="mainBackground" style={{ flex: 1 }}>
                 <AppRouter />
               </div>
+              <FooterBar />
             </Suspense>
-            <FooterBar />
           </div>
         </BrowserRouter>
       </Provider>

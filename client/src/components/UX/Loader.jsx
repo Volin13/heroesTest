@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReactComponent as HeroIcon } from '../../assets/barImages/delete-1-svgrepo-com.svg';
+import { ReactComponent as HeroIcon } from '../../assets/other/superhero-svgrepo-com.svg';
 
 const Loader = () => {
   return (

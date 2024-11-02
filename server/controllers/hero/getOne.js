@@ -11,7 +11,6 @@ const getOne = async (req, res, next) => {
 
   try {
     const hero = await Hero.findOne({
-      // Find the hero by ID
       where: { id },
       include: [
         {

@@ -10,7 +10,7 @@ const LibListItem = ({ loading, hero }) => {
   return (
     <li className={css.libListItem} key={hero?.id}>
       {loading ? (
-        <Card className={css.card} bg="dark">
+        <Card className={css.card} bg="dark" style={{ cursor: 'progress' }}>
           <div style={{ overflow: 'hidden' }}>
             <Card.Img
               className={`${css.cardImage} ${css.imgPreloader}`}

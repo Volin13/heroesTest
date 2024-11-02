@@ -59,6 +59,8 @@ const updateHero = async (updatedData, id) => {
   try {
     const response = await $host.patch(`/heroes/${id}`, updatedData);
     toast.info('Hero updated:', response.data);
+
+    return response.data.hero;
   } catch (error) {
     console.error(
       'Error updating hero:',

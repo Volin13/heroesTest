@@ -1,10 +1,11 @@
-import React, { startTransition, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { Card, Tab, Tabs } from 'react-bootstrap';
+import { Card, Placeholder, Tab, Tabs } from 'react-bootstrap';
 
 import { fetchHeroById, setSelectedHero } from '../../redux/heroSlice';
 import HeroPictures from './HeroPicrues';
+import HeroPlaceholder from '../../assets/other/superhero-svgrepo-com.svg';
 import css from './Hero.module.css';
 
 const Hero = () => {
@@ -22,10 +23,12 @@ const Hero = () => {
       });
     }
   }, [dispatch, id]);
+
   useEffect(() => {
-    startTransition(() => {
+    console.log(selectedHero);
+    if (selectedHero) {
       setHeroInfo(selectedHero);
-    });
+    }
   }, [selectedHero]);
 
   return (
@@ -35,31 +38,33 @@ const Hero = () => {
         {loading || !heroInfo ? (
           <img
             alt="hero placeholder"
-            src={'../../assets/other/superhero-svgrepo-com.svg'}
+            height={200}
+            width={200}
+            className={css.heroImage}
+            src={HeroPlaceholder}
           />
         ) : (
           <img
             className={css.heroImage}
             alt={heroInfo?.nickname}
             height={200}
-            src={
-              process.env.REACT_APP_API_URL + '/' + heroInfo?.mainImg ||
-              '../../assets/other/superhero-svgrepo-com.svg'
-            }
+            src={process.env.REACT_APP_API_URL + '/' + heroInfo?.mainImg}
           />
         )}
         <Card.Header>Catch phrases:</Card.Header>
-        <Card.Body>
-          {loading || !heroInfo ? (
-            <blockquote className="blockquote mb-0">
-              <p className={css.catchPhrase}>Something..something</p>
-              <footer className="blockquote-footer">
+        <Card.Body style={{ minHeight: '117px' }}>
+          {loading ? (
+            <blockquote className="blockquote mb-3">
+              <p className={css.catchPhrase}>
+                <Placeholder xs={12} />
+              </p>
+              <footer className="mt-3">
                 <cite title="Source Title">Someone</cite>
               </footer>
             </blockquote>
           ) : (
             <ul className={css.heroCatchPhraseList}>
-              {heroInfo?.catch_phrases.map(item => (
+              {heroInfo?.catch_phrases?.map(item => (
                 <li key={item.id}>
                   <blockquote className="blockquote mb-0">
                     <p className={css.catchPhrase}>{item.description}</p>
@@ -85,17 +90,17 @@ const Hero = () => {
             <ul className={css.heroCommonInfo}>
               <li>
                 <p style={{ textTransform: 'capitalize' }}>
-                  Real name: {heroInfo?.real_name}
+                  Name: {heroInfo?.real_name}
                 </p>
               </li>
               <li>
                 <p style={{ textTransform: 'capitalize' }}>
-                  Nick name: {heroInfo?.nickname}
+                  Nickname: {heroInfo?.nickname}
                 </p>
               </li>
-              <li>Age: {heroInfo?.age}</li>
+              <li>Age: {heroInfo?.age} years</li>
               <li>Sex: {heroInfo?.sex}</li>
-              <li>Height: {heroInfo?.height} cm</li>
+              <li>Height: {heroInfo?.height} m.</li>
               <li>Weight: {heroInfo?.weight} kg</li>
               <li>Species: {heroInfo?.species}</li>
               <li>Alignment: {heroInfo?.alignment}</li>
@@ -104,13 +109,34 @@ const Hero = () => {
         </Tab>
         <Tab eventKey="profile" title="Origin">
           <div className={css.heroInfoContent}>
-            {heroInfo?.origin_description}
+            <p
+              style={{
+                height: '100%',
+                width: '100%',
+                overflowY: 'auto',
+              }}
+            >
+              {loading ? (
+                <>
+                  <Placeholder xs={12} />
+                  <Placeholder xs={12} />
+                  <Placeholder xs={12} />
+                  <Placeholder xs={12} />
+                  <Placeholder xs={12} />
+                  <Placeholder xs={12} />
+                  <Placeholder xs={12} />
+                  <Placeholder xs={12} />
+                </>
+              ) : (
+                heroInfo?.origin_description
+              )}
+            </p>
           </div>
         </Tab>
         <Tab eventKey="longer-tab" title="Superpowers">
           <div className={css.heroInfoContent}>
             <ul>
-              {heroInfo?.hero_superpowers.map(item => (
+              {heroInfo?.hero_superpowers?.map(item => (
                 <li key={item.id} className={css.superpowers}>
                   <p className={css.superpowersTitle}>{item.title}</p>
                   <p>{item.description}</p>

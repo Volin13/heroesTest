@@ -9,8 +9,9 @@
 .headerBtn {
   color: var(--primaryWhiteColor);
   position: absolute;
-  height: 50px;
-  width: 50px;
+  height: 40px;
+  width: 40px;
+  z-index: 99;
   border-radius: 50%;
   top: 50%;
   left: 15%;
@@ -18,13 +19,15 @@
   transition: all 0.5s;
 }
 .addBtn {
-  left: 15%;
+  left: 10px;
 }
 .editBtn {
-  left: 20%;
+  top: 120px;
+  left: 10px;
 }
 .deleteBtn {
-  left: 25%;
+  left: 10px;
+  top: 190px;
 }
 
 .headerBtn:hover,
@@ -60,18 +63,34 @@
   text-align: center;
 }
 
-@media screen and (min-width: 375px) {
-}
 @media screen and (min-width: 768px) {
-  body {
-    padding-top: 0;
+  .headerBtn {
+    color: var(--primaryWhiteColor);
+    position: absolute;
+    height: 50px;
+    width: 50px;
+    top: 50%;
+    transform: translateY(-50%) rotate(0deg);
+  }
+  .addBtn {
+    left: 10%;
+  }
+  .editBtn {
+    left: 20%;
+  }
+  .deleteBtn {
+    left: 30%;
   }
 }
-@media screen and (min-width: 990px) {
-}
-@media screen and (min-width: 1280px) {
-}
+
 @media screen and (min-width: 1440px) {
-}
-@media screen and (min-width: 1920px) {
+  .addBtn {
+    left: 15%;
+  }
+  .editBtn {
+    left: 20%;
+  }
+  .deleteBtn {
+    left: 25%;
+  }
 }

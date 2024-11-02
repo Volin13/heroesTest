@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import css from './barsStyles.module.css';
 import { NavLink, useLocation } from 'react-router-dom';
 import { OverlayTrigger, Tooltip } from 'react-bootstrap';
+
 import { ReactComponent as AddIcon } from '../../assets/barImages/add-create-new-plus-svgrepo-com.svg';
 import { ReactComponent as EditIcon } from '../../assets/barImages/edit-svgrepo-com.svg';
 import { ReactComponent as DeleteIcon } from '../../assets/barImages/delete-1-svgrepo-com.svg';

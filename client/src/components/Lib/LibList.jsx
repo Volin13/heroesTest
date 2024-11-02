@@ -3,7 +3,6 @@ import css from './Lib.module.css';
 import LibListItem from './LibListItem';
 
 const LibList = ({ loading, list }) => {
-  // console.log(list);
   return (
     <>
       {loading ? (

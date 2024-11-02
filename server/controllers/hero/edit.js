@@ -38,7 +38,23 @@ const edit = async (req, res, next) => {
   } = req.body;
 
   try {
-    const hero = await Hero.findOne({ where: { id } });
+    const hero = await Hero.findOne({
+      where: { id },
+      include: [
+        {
+          model: HeroCatchPhrase,
+          as: "catch_phrases",
+        },
+        {
+          model: HeroSuperpowers,
+          as: "hero_superpowers",
+        },
+        {
+          model: HeroImages,
+          as: "heroImages",
+        },
+      ],
+    });
     if (!hero) {
       return next(ApiError.notFound("Hero not found"));
     }
@@ -90,21 +106,23 @@ const edit = async (req, res, next) => {
       }
     }
 
-    console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!poof");
     // Додати нові зображення
-    const imageFiles = Object.keys(req.files)
-      .filter((key) => key.startsWith("images["))
-      .map((key) => req.files[key]);
-    if (imageFiles.length) await saveImages(imageFiles, hero.id);
 
-    // Оновлення суперсили
-    if (parsedSuperpowers.length) {
-      await HeroSuperpowers.destroy({ where: { heroId: id } });
-      await Promise.all(
-        parsedSuperpowers.map(({ title, description }) =>
-          HeroSuperpowers.create({ heroId: id, title, description })
-        )
-      );
+    if (req.files) {
+      const imageFiles = Object.keys(req.files)
+
+        .filter((key) => key.startsWith("images["))
+        .map((key) => req.files[key]);
+      if (imageFiles.length) await saveImages(imageFiles, hero.id);
+      // Оновлення суперсили
+      if (parsedSuperpowers.length) {
+        await HeroSuperpowers.destroy({ where: { heroId: id } });
+        await Promise.all(
+          parsedSuperpowers.map(({ title, description }) =>
+            HeroSuperpowers.create({ heroId: id, title, description })
+          )
+        );
+      }
     }
 
     // Оновлення фраз
