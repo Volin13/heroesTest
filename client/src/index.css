@@ -187,6 +187,9 @@ table {
   background-color: var(--secondaryRedColor);
   border: 1px solid var(--primaryRedColor);
 }
+.nav-link {
+  color: var(--warningColor);
+}
 @media screen and (min-width: 375px) {
 }
 @media screen and (min-width: 768px) {

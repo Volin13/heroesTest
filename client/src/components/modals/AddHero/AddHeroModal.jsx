@@ -63,8 +63,8 @@ const AddHeroModal = ({ show, onHide }) => {
     setSuperpowers([]);
     setCatchPhrases([]);
     setHeroImages([]);
-    formik.resetForm();
-    onHide();
+    // formik.resetForm();
+    // onHide();
   };
   const mainImgchema = yup.object().shape({
     mainImg: yup

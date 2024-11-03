@@ -35,6 +35,7 @@ const edit = async (req, res, next) => {
     catch_phrases,
     height,
     weight,
+    mainImg,
   } = req.body;
 
   try {
@@ -80,6 +81,12 @@ const edit = async (req, res, next) => {
 
     const { mainImg } = req.files || {};
     if (mainImg && mainImg.size > 0) {
+      // delete old mainImg
+      const oldMainImg = path.join(staticPath, hero.mainImg);
+
+      await fs.unlink(oldMainImg);
+
+      // save new mainImg
       const fileName = uuidv4() + ".jpg";
       await mainImg.mv(path.join(staticPath, fileName));
       hero.mainImg = fileName;
